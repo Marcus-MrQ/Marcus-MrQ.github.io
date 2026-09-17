@@ -1,7 +1,7 @@
 // setup variables
 const walkAcceleration = 2.5; // how much is added to the speed each frame
 const gravity = 0.5; // how much is subtracted from speedY each frame
-const friction = 1.5; // how much the player is slowed each frame
+const friction = 1.0; // how much the player is slowed each frame
 const maxSpeed = 8; // maximum horizontal speed, not vertical
 const playerJumpStrength = 12; // this is subtracted from the speedY each jump
 const projectileSpeed = 8; // the speed of projectiles
@@ -14,17 +14,17 @@ let gridMade = false;
 
 // Base game variables
 const frameRate = 60;
-const playerScale = 0.8; //makes the player just a bit smaller. Doesn't affect the hitbox, just the image
+const playerScale = 0.5; //makes the player just a bit smaller. Doesn't affect the hitbox, just the image
 
 // Player variables
 const player = {
   x: 50,
-  y: 100,
+  y: 700,
   speedX: 0,
   speedY: 0,
   width: undefined,
   height: undefined,
-  onGround: false,
+  onGround: true,
   facingRight: true,
   deadAndDeathAnimationDone: false,
   winConditionMet: false,
@@ -35,6 +35,8 @@ let hitDy;
 let hitBoxWidth = 50 * playerScale;
 let hitBoxHeight = 105 * playerScale;
 let firstTimeSetup = true;
+let speedrunStartTime = 0;
+let speedrunTimerInterval;
 
 const keyPress = {
   any: false,
@@ -102,4 +104,5 @@ var collectableList = {
   kennedi: { image: "images/collectables/kennedi-head.png" },
   max: { image: "images/collectables/max-head.png" },
   steve: { image: "images/collectables/steve-head.png" },
+ 
 };

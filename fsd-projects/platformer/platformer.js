@@ -12,6 +12,8 @@ $(function () {
       $(document).on("keydown", handleKeyDown);
       $(document).on("keyup", handleKeyUp);
       firstTimeSetup = false;
+      speedrunStartTime = performance.now();
+      speedrunTimerInterval = setInterval(updateSpeedrunTimer, 100);
       //start game
       setInterval(main, 1000 / frameRate);
     }
@@ -35,12 +37,13 @@ $(function () {
      createPlatform(550,420,150,30,"blue")
      createPlatform(200,550,210,30,"blue")
      createPlatform(900,300,100,30,"blue")
-     createPlatform(970,270,30,870,"blue")
-     createPlatform(1100,600,30,30,"red")
-     createPlatform(1300,500,30,30,"red")
+     createBadPlatform(970,270,30,870,"red")
+     createPlatform(1000,270,30,870,"rgb(216, 140, 223)")
+     createPlatform(1100,600,30,30,"blue")
+     createPlatform(1300,500,30,30,"blue")
      createPlatform(400,300,-100,30,"red")
      createPlatform(400,200,350,30,"rgb(216, 140, 223)")
-
+     
 
 
     // TODO 3 - Create Collectables
@@ -51,17 +54,33 @@ $(function () {
 
     
     // TODO 4 - Create Cannons
-     createCannon("top",400,800)
-     createCannon("right",350,1500)
+     createCannon("top",400,850,20,10,100,400,2)
+     createCannon("right",350,1500,20,10,100,400,2)
      createCannon("bottom",1000,800)
      createCannon("right",1000,1000)
+     
 
     
     
     //////////////////////////////////
     // ONLY CHANGE ABOVE THIS POINT //
     //////////////////////////////////
+    
   }
 
   registerSetup(setup);
+
+  function updateSpeedrunTimer() {
+    if (player.winConditionMet) {
+      clearInterval(speedrunTimerInterval);
+      return;
+    }
+
+    const elapsedSeconds = (performance.now() - speedrunStartTime) / 1000;
+    const minutes = Math.floor(elapsedSeconds / 60);
+    const seconds = Math.floor(elapsedSeconds % 60);
+    const milliseconds = Math.floor((elapsedSeconds % 1) * 1000);
+    document.getElementById("speedrun-timer").textContent =
+      `${minutes}:${String(seconds).padStart(2, "0")}.${String(milliseconds).padStart(3, "0")}`;
+  }
 });

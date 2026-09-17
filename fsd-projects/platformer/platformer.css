@@ -7,6 +7,15 @@ body {
   align-items: center;
 }
 
+#speedrun-timer {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1;
+  color: white;
+  font: bold 24px monospace;
+}
+
 canvas {
   background-color: rgb(216, 140, 223);
   margin: 20px;
